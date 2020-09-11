@@ -1,5 +1,10 @@
 ### On-Premises ReadTheDocs (RTD) Docker Container
 
+> **UPDATE 2020-09-11**
+> Adding support for python3.6 usign most updated readthedocs repository according to the
+> [Read the docs documentation](https://docs.readthedocs.io/en/stable/development/install.html)
+> Up till this momment, higher version have some issues.
+
 This is an on-premises setup of ReadTheDocs (RTD) with full support for LaTeX-to-PDF and other bells-and-whistles installed at readthedocs.org.
 
 Installed packages include:
