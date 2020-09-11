@@ -6,7 +6,7 @@ SOCKFILE=/www/readthedocs.org/run/gunicorn.sock     # We will communicate using 
 USER=root                                           # The user to run as
 GROUP=root                                          # The group to run as
 NUM_WORKERS=3                                       # How many worker processes should Gunicorn spawn
-DJANGO_SETTINGS_MODULE=readthedocs.settings.sqlite  # Which settings file should Django use
+DJANGO_SETTINGS_MODULE=readthedocs.settings.dev  # Which settings file should Django use
 DJANGO_WSGI_MODULE=readthedocs.wsgi                 # WSGI module name
 
 echo "Starting $NAME as `whoami`"
@@ -31,4 +31,4 @@ exec gunicorn ${DJANGO_WSGI_MODULE}:application \
   --bind=unix:$SOCKFILE \
   --timeout=300 \
   --log-level=debug \
-  --log-file=-
+  --log-file=./log.txt

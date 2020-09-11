@@ -1,4 +1,4 @@
-FROM python:2
+FROM python:3.6.12-buster
 
 # Prep the environment
 RUN apt-get update && apt-get -y install \
@@ -15,27 +15,18 @@ RUN apt-get update && apt-get -y install \
 RUN mkdir /www
 WORKDIR /www
 
-COPY ./files/readthedocs.org-master.tar.gz ./readthedocs.org-master.tar.gz
-COPY ./files/tasksrecommonmark.patch ./tasksrecommonmark.patch
-RUN tar -zxvf readthedocs.org-master.tar.gz
-RUN mv ./readthedocs.org-master ./readthedocs.org
+COPY ./readthedocs.org ./readthedocs.org
 
 WORKDIR /www/readthedocs.org
-
-
 
 # Install the required Python packages
 RUN pip install -r requirements.txt
 
 # Install a higher version of requests to fix an SSL issue
-RUN pip install requests==2.6.0
+#RUN pip install requests==2.6.0
 
 # Override the default settings
 COPY ./files/local_settings.py ./readthedocs/settings/local_settings.py
-COPY ./files/tasksrecommonmark.patch ./tasksrecommonmark.patch
-
-# Patch tasks.py to use newer recommonmark
-RUN patch ./readthedocs/projects/tasks.py < ./tasksrecommonmark.patch
 
 # Deploy the database
 RUN python ./manage.py migrate
